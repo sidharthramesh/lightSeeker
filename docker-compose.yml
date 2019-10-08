@@ -1,0 +1,29 @@
+version: "2"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    # command: python manage.py runserver --bind 0.0.0.0:8000
+    command: gunicorn lightSeeker.wsgi:application --bind 0.0.0.0:8000
+
+    environment:
+      - SQL_ENGINE=django.db.backends.postgresql
+      - SQL_DATABASE=lightseeker
+      - SQL_USER=django
+      - SQL_PASSWORD=django
+      - SQL_HOST=db
+      - SQL_PORT=5432
+    depends_on:
+      - db
+  db:
+      image: postgres
+      volumes:
+        - postgres_data:/var/lib/postgresql/data/
+      environment:
+        - POSTGRES_USER=django
+        - POSTGRES_PASSWORD=django
+        - POSTGRES_DB=lightseeker
+
+volumes:
+  postgres_data:

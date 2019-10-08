@@ -75,6 +75,6 @@ function render(url){
 document.addEventListener("DOMContentLoaded", function(event) {
     simNumber = window.location.pathname
     url = `/simulations${simNumber}`
-    poll(() => new Promise(() => render(url)), 500)
+    poll(() => new Promise(() => render(url)), 20)
 });
             

@@ -38,7 +38,7 @@ class Agent(models.Model):
 class Light(models.Model):
     positionX = models.FloatField(default=randPosition)
     positionY = models.FloatField(default=randPosition)
-    brightness = models.FloatField(default=0.069)
+    brightness = models.FloatField(default=48)
 
     def position(self):
         return np.array([self.positionX, self.positionY])
@@ -52,8 +52,8 @@ class Graph(models.Model):
         return np.sqrt(np.sum((distance)**2))
 
     def sensor(self):
-        scale=45
-        lightDecay = 2*scale/(1+np.exp(self.light.brightness*self.distance()))
+        scale = self.light.brightness
+        lightDecay = 2*scale/(1+np.exp(0.069*self.distance()))
         return lightDecay
     
     def step(self, left, right):

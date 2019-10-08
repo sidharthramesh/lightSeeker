@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from agent.views import AgentView, AgentCreate, HomeView
+from django.views.decorators.csrf import csrf_exempt
+
 urlpatterns = [
     path('<int:pk>', HomeView.as_view()),
-    path('simulations/',AgentCreate.as_view()),
-    path('simulations/<int:pk>', AgentView.as_view()),
+    path('simulations/',csrf_exempt(AgentCreate.as_view())),
+    path('simulations/<int:pk>', csrf_exempt(AgentView.as_view())),
 ]

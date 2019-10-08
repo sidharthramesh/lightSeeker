@@ -7,24 +7,16 @@ Have python3 installed with virtualenv, clone the repository.
 cd lightSeeker
 virtualenv venv
 ```
-Activate Virtual Environment
+Build and run migrations
 ```
-venv\Scripts\activate.bat
+docker-compose build
+docker-compose run web python manage.py migrate
 ```
-Install dependencies
+Run the app
 ```
-pip install -r requirements.txt
+docker-compose up
 ```
-Run migration, initialization scripts
-```
-python manage.py makemigrations
-python manage.py migrate
-python manage.py collectstatic
-```
-Run server 
-```
-python serve.py
-```
+
 ## API Usage
 
 ### POST /simulations/
@@ -52,4 +44,4 @@ A request takes a step on the simulation environment
 Deletes the instance of simulation
 
 ## Visualization Tool
-After creating a simulation with a POST request, visit localhost:8000/pk/
+After creating a simulation with a POST request, visit localhost:5000/pk/
